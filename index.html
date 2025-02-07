@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotka Powiadomienie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .emoji {
+            font-size: 50px;
+            cursor: pointer;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .download-link {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .download-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="emoji" onclick="generateFile()">😜</div>
+
+    <div class="notification" id="notification">
+        Jesteś nie dojebany!
+    </div>
+
+    <a id="downloadLink" class="download-link" href="#" download="wyniki.txt">Pobierz plik</a>
+
+    <script>
+        function generateFile() {
+            // Pokaż powiadomienie
+            var notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            
+            // Utwórz zawartość pliku
+            var fileContent = "Jesteś nie dojebany!\n";
+            
+            // Stwórz obiekt Blob z danymi
+            var blob = new Blob([fileContent], { type: "text/plain" });
+            
+            // Utwórz URL do pliku
+            var fileURL = URL.createObjectURL(blob);
+            
+            // Stwórz link do pobrania pliku
+            var downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = fileURL;
+            downloadLink.style.display = 'inline-block'; // Pokaż link do pobrania
+            
+            // Znikaj powiadomienie po 3 sekundach
+            setTimeout(function() {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
+
